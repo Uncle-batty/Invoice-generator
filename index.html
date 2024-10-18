@@ -8,6 +8,13 @@
     <meta name="keywords" content="Invoice, Generator, Invoice Generator, Buisness, Quote">
 
     <title>Invoice genorator</title>
+
+    <link rel="stylesheet" href="Styles/Styles.css">
+    <script src="Scripts/index.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+
 </head>
 
 <body>
@@ -38,12 +45,16 @@
             </div>
         </section>
         <section class="Item-info"></section>
-        <section class="Final-info"></section>
+        <section class="Final-info">
+
+            <Button onclick="genPDF()">Generate</Button>
+        </section>
     </main>
 
     <footer>
 
     </footer>
+
 </body>
 
 </html>
