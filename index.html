@@ -14,7 +14,7 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.min.js"></script>
 </head>
 
 <body>
@@ -44,9 +44,13 @@
                 <input type="text" id="Address">
             </div>
         </section>
-        <section class="Item-info"></section>
-        <section class="Final-info">
 
+        <!-- Item info -->
+        <section class="Item-info">
+                
+        </section>
+
+        <section class="Final-info">
             <Button onclick="genPDF()">Generate</Button>
         </section>
     </main>
