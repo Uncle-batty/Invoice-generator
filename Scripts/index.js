@@ -1,3 +1,48 @@
+let globalRows = [];
+let sum = 0;
+
+function addItems()
+{
+    var itemName = document.getElementById("item-name").value;
+    var itemDescription = document.getElementById("item-description").value;
+    var itemQuantity = document.getElementById("item-quantity").value;
+    var itemUnitPrice = document.getElementById("item-unit-price").value;
+    var itemAmount = itemQuantity * itemUnitPrice;
+
+    sum += itemAmount;
+
+    let itemsDictionary = [       
+        itemName,
+        itemDescription,
+        itemQuantity,
+        itemUnitPrice,
+        itemAmount
+    ]
+
+
+    
+
+    globalRows.push(itemsDictionary);
+
+    //alert("Items have been added!");
+
+    clearInputs();
+
+    //console.log(globalRows);
+}
+
+function clearInputs() {
+    //https://bobbyhadz.com/blog/javascript-clear-input-field-after-submit
+    const itemName = document.getElementById("item-name");
+    const itemDescription = document.getElementById("item-description");
+    const itemQuantity = document.getElementById("item-quantity");
+    const itemUnitPrice = document.getElementById("item-unit-price");
+
+    itemName.value = "";
+    itemDescription.value ="";
+    itemQuantity.value = "";
+    itemUnitPrice.value = "";
+}
 
 function genPDF() {
     //init jsPDF
@@ -12,7 +57,7 @@ function genPDF() {
     var buisnessInvoiceId = document.getElementById("buisness-invoive-id").value;
     var buisnessBilledToName = document.getElementById("buisness-billed-to-name").value;
     var buisnessBilledToAddress = document.getElementById("Address").value;
-
+    
     //check if inputs are empty
     if (buisnessInvoiceId == "") {
         buisnessInvoiceId = Math.floor(Math.random() * 1000000000) + 1;
@@ -43,7 +88,13 @@ function genPDF() {
 
     //Get table items 
     const columns = ["Item", "Description", "Quantity", "Price/Unit", "Total"];
-    const rows = null; // Faiz add code here for items
+    
+    const grandTotal = ["", "", "", "", sum];
+    globalRows.push(grandTotal);
+
+    const rows = globalRows;
+    
+
     //Table for items 
     doc.setFontSize(14);
     doc.text("Invoice Details", 20, 95 );
@@ -112,6 +163,8 @@ function loadFromLocalStorage() {
     if (buisnessInvoiceId) document.getElementById("buisness-invoive-id").value = buisnessInvoiceId + 1;
     if (buisnessBilledToName) document.getElementById("buisness-billed-to-name").value = buisnessBilledToName;
     if (buisnessBilledToAddress) document.getElementById("Address").value = buisnessBilledToAddress;
+
+
 }
 
 // Call this function on page load to automatically populate the fields
