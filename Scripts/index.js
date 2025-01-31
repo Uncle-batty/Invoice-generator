@@ -1,36 +1,48 @@
 let globalRows = [];
 let sum = 0;
 
-function addItems()
-{
+function addItems() {
+    
     var itemName = document.getElementById("item-name").value;
     var itemDescription = document.getElementById("item-description").value;
-    var itemQuantity = document.getElementById("item-quantity").value;
-    var itemUnitPrice = document.getElementById("item-unit-price").value;
+    var itemQuantity = parseInt(document.getElementById("item-quantity").value) || 0;
+    var itemUnitPrice = parseFloat(document.getElementById("item-unit-price").value) || 0;
     var itemAmount = itemQuantity * itemUnitPrice;
 
-    sum += itemAmount;
+    if (!itemName ||!itemDescription || !itemQuantity || !itemUnitPrice || itemQuantity <= 0 || itemUnitPrice <= 0 || itemAmount <= 0) { 
+        alert("Please fill out all required fields and ensure quantity and unit price are positive numbers.");
+        return;  // Exit the function if any required fields are missing or invalid
+    }
+    
+    sum += itemAmount; 
 
     let itemsDictionary = [       
         itemName,
         itemDescription,
         itemQuantity,
-        itemUnitPrice,
-        itemAmount
-    ]
+        itemUnitPrice.toFixed(2), 
+        itemAmount.toFixed(2)    
+    ];
 
+    globalRows.push(itemsDictionary); 
+    displayTable(globalRows); 
 
-    
-
-    globalRows.push(itemsDictionary);
-
-    //alert("Items have been added!");
-
-    clearInputs();
-
-    //console.log(globalRows);
+    clearInputs(); 
 }
 
+function displayTable(dictionary) {
+    var table = document.getElementById("item-table");
+    table.innerHTML = ""; // Clear existing table before adding new rows
+
+    dictionary.forEach(row => {
+        let newRow = table.insertRow(); // Create a new row
+        
+        row.forEach(cell => {
+            let newCell = newRow.insertCell(); // Create a new cell
+            newCell.textContent = cell; // Set the cell text
+        });
+    });
+}
 function clearInputs() {
     //https://bobbyhadz.com/blog/javascript-clear-input-field-after-submit
     const itemName = document.getElementById("item-name");
