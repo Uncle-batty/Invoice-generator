@@ -1,6 +1,16 @@
 let globalRows = [];
 let sum = 0;
 
+document.addEventListener("DOMContentLoaded", function() {
+    let logoImg = document.getElementById("preview-business-logo");
+    let logoImgFile = document.getElementById("business-logo-file");
+
+    logoImgFile.onchange = function() {
+        logoImg.src = URL.createObjectURL(logoImgFile.files[0]);
+    }
+});
+
+
 function addItems() {
     
     var itemName = document.getElementById("item-name").value;
