@@ -11,34 +11,46 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 
+/**
+ * Add a new item to the globalRows array and update the table display.
+ * This function retrieves the item details from input fields, validates them,
+ * calculates the total amount, and then updates the globalRows array and
+ * the table display with the new item.
+ *
+ * @param {void} This function does not take any parameters.
+ * @returns {void} This function does not return anything.
+ */
 function addItems() {
-    
     var itemName = document.getElementById("item-name").value;
     var itemDescription = document.getElementById("item-description").value;
     var itemQuantity = parseInt(document.getElementById("item-quantity").value) || 0;
     var itemUnitPrice = parseFloat(document.getElementById("item-unit-price").value) || 0;
     var itemAmount = itemQuantity * itemUnitPrice;
 
-    if (!itemName ||!itemDescription || !itemQuantity || !itemUnitPrice || itemQuantity <= 0 || itemUnitPrice <= 0 || itemAmount <= 0) { 
+    // Validate input fields and exit the function if any are invalid or missing
+    if (!itemName || !itemDescription || !itemQuantity || !itemUnitPrice || itemQuantity <= 0 || itemUnitPrice <= 0 || itemAmount <= 0) {
         alert("Please fill out all required fields and ensure quantity and unit price are positive numbers.");
-        return;  // Exit the function if any required fields are missing or invalid
+        return;
     }
-    
-    sum += itemAmount; 
 
-    let itemsDictionary = [       
+    // Update the total sum and the globalRows array
+    sum += itemAmount;
+
+    let itemsDictionary = [
         itemName,
         itemDescription,
         itemQuantity,
-        itemUnitPrice.toFixed(2), 
-        itemAmount.toFixed(2)    
+        itemUnitPrice.toFixed(2),
+        itemAmount.toFixed(2)
     ];
 
-    globalRows.push(itemsDictionary); 
-    displayTable(globalRows); 
+    globalRows.push(itemsDictionary);
+    displayTable(globalRows);
 
-    clearInputs(); 
+    // Clear input fields for the next item
+    clearInputs();
 }
+
 
 function displayTable(dictionary) {
     var table = document.getElementById("item-table");
@@ -66,88 +78,138 @@ function clearInputs() {
     itemUnitPrice.value = "";
 }
 
+/**
+ * Generates a PDF invoice based on the provided business and customer details.
+ * If a business logo is uploaded, it will be incorporated into the invoice.
+ * If no invoice ID is provided, a random one will be generated.
+ *
+ * @param {Object} doc - The jsPDF object for generating the invoice.
+ * @param {string} imgData - The base64 encoded image data for the business logo.
+ * @param {string} businessName - The name of the business.
+ * @param {string} businessAddress - The address of the business.
+ * @param {string} businessPhone - The phone number of the business.
+ * @param {string} businessEmail - The email of the business.
+ * @param {string} businessInvoiceId - The ID of the invoice.
+ * @param {string} businessBilledToName - The name of the person/business being billed.
+ * @param {string} businessBilledToAddress - The address of the person/business being billed.
+ * @returns {void} - This function does not return a value. It opens the generated PDF in a new tab.
+ */
 function genPDF() {
-    //init jsPDF
+    // Initialize jsPDF
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
 
-    //get all the inputs
-    var buisnessName = document.getElementById("buisness-name").value;
-    var buisnessAddress = document.getElementById("buisness-address").value;
-    var buisnessPhone = document.getElementById("buisness-phone").value;
-    var buisnessEmail = document.getElementById("buisness-email").value;
-    var buisnessInvoiceId = document.getElementById("buisness-invoive-id").value;
-    var buisnessBilledToName = document.getElementById("buisness-billed-to-name").value;
-    var buisnessBilledToAddress = document.getElementById("Address").value;
-    
-    //check if inputs are empty
-    if (buisnessInvoiceId == "") {
-        buisnessInvoiceId = Math.floor(Math.random() * 1000000000) + 1;
+    // Get all inputs
+    var businessName = document.getElementById("buisness-name").value;
+    var businessAddress = document.getElementById("buisness-address").value;
+    var businessPhone = document.getElementById("buisness-phone").value;
+    var businessEmail = document.getElementById("buisness-email").value;
+    var businessInvoiceId = document.getElementById("buisness-invoive-id").value;
+    var businessBilledToName = document.getElementById("buisness-billed-to-name").value;
+    var businessBilledToAddress = document.getElementById("Address").value;
+
+    // Generate invoice ID if empty
+    if (businessInvoiceId == "") {
+        businessInvoiceId = Math.floor(Math.random() * 1000000000) + 1;
     }
 
-    // create invoice
+    // Check if logo is uploaded
+    let logoImg = document.getElementById("preview-business-logo");
+    if (logoImg.src && logoImg.src.startsWith("blob")) {
+        let img = new Image();
+        img.src = logoImg.src;
+        img.onload = function () {
+            let canvas = document.createElement("canvas");
+            let ctx = canvas.getContext("2d");
+
+            // Set the canvas size to match the image
+            canvas.width = img.width;
+            canvas.height = img.height;
+            ctx.drawImage(img, 0, 0, img.width, img.height);
+
+            let imgData = canvas.toDataURL("image/png");
+
+            // Generate the invoice after loading the logo
+            generateInvoice(doc, imgData, businessName, businessInvoiceId, businessAddress, businessPhone, businessEmail, businessBilledToName, businessBilledToAddress);
+        }
+    } else {
+        generateInvoice(doc, null, businessName, businessInvoiceId, businessAddress, businessPhone, businessEmail, businessBilledToName, businessBilledToAddress);
+    }
+}
+
+
+/**
+ * Generates an invoice using provided details and opens it in a new tab.
+ *
+ * @param {Object} doc - The jsPDF object for generating the invoice.
+ * @param {string} imgData - The base64 encoded image data for the business logo.
+ * @param {string} businessName - The name of the business.
+ * @param {string} businessInvoiceId - The ID of the invoice.
+ * @param {string} businessAddress - The address of the business.
+ * @param {string} businessPhone - The phone number of the business.
+ * @param {string} businessEmail - The email of the business.
+ * @param {string} businessBilledToName - The name of the person/business being billed.
+ * @param {string} businessBilledToAddress - The address of the person/business being billed.
+ * @returns {void}
+ */
+function generateInvoice(doc, imgData, businessName, businessInvoiceId, businessAddress, businessPhone, businessEmail, businessBilledToName, businessBilledToAddress) {
+    // Create invoice header
     doc.setFontSize(24);
-    doc.text(buisnessName, 100, 10,null, null, "center");
+    doc.text(businessName, 105, 20, null, null, "center");
+
     doc.setFontSize(12);
-    doc.text("Invoice: " + buisnessInvoiceId, 10, 20);
+    doc.text("Invoice: " + businessInvoiceId, 10, 35); // Invoice number
+
+    // If there is a logo, add it under invoice number and next to business details
+    if (imgData) {
+        doc.addImage(imgData, "PNG", 35, 50, 50, 50); // Logo on the left under invoice ID
+    }
+
+    // Business details on the right side
     doc.setFontSize(14);
-    doc.text("Billed From: ", 135, 20);
+    doc.text("Billed From: ", 135, 45);
     doc.setFontSize(12);
-    doc.text(buisnessAddress, 140, 30);     
-    doc.text("Call:" + buisnessPhone, 140, 40);
-    doc.text("Email:" + buisnessEmail, 140, 50);
+    doc.text(businessAddress, 140, 55);
+    doc.text("Call: " + businessPhone, 140, 65);
+    doc.text("Email: " + businessEmail, 140, 75);
+
+    // Billed To section
     doc.setFontSize(14);
-    doc.text("Billed to: ", 135, 60);
+    doc.text("Billed to: ", 135, 90);
     doc.setFontSize(12);
-    doc.text(buisnessBilledToName, 140, 70);
-    doc.text(buisnessBilledToAddress, 140, 80);
+    doc.text(businessBilledToName, 140, 100);
+    doc.text(businessBilledToAddress, 140, 110);
 
+    // Draw a separator line
+    doc.setDrawColor(0, 0, 0);
+    doc.setLineWidth(1.5);
+    doc.line(10, 120, 200, 121);
 
-    doc.setDrawColor(0, 0, 0); 
-    doc.setLineWidth(1.5);          
-    doc.line(10, 90, 200, 91); 
-
-
-    //Get table items 
+    // Table for items
     const columns = ["Item", "Description", "Quantity", "Price/Unit", "Total"];
-    
-    const grandTotal = ["", "", "", "", sum];
-    globalRows.push(grandTotal);
-
     const rows = globalRows;
-    
-
-    //Table for items 
     doc.setFontSize(14);
-    doc.text("Invoice Details", 20, 95 );
+    doc.text("Invoice Details", 20, 125);
     doc.setFontSize(12);
-    doc.autoTable({ head: [columns],
+    doc.autoTable({
+        head: [columns],
         body: rows,
-        startY: 100,
-        theme: 'grid', 
-        headStyles: {
-        fillColor: [0, 102, 204], 
-        textColor: [255, 255, 255], 
-        fontSize: 12,
-        fontStyle: 'bold'
-    },
-        bodyStyles: {
-        textColor: [0, 0, 0],  
-        fontSize: 10
-    },
-        alternateRowStyles: {
-        fillColor: [240, 240, 240]  
-    },
-        tableLineColor: [0, 0, 0], 
-        tableLineWidth: 0.1            
+        startY: 130,
+        theme: 'grid',
+        headStyles: { fillColor: [0, 102, 204], textColor: [255, 255, 255], fontSize: 12, fontStyle: 'bold' },
+        bodyStyles: { textColor: [0, 0, 0], fontSize: 10 },
+        alternateRowStyles: { fillColor: [240, 240, 240] },
+        tableLineColor: [0, 0, 0],
+        tableLineWidth: 0.1
     });
-    //open in a new tab
-    var pdfBlob = doc.output("blob");
 
-    // Create a URL for the Blob and open it in a new tab
+    // Open PDF in a new tab
+    var pdfBlob = doc.output("blob");
     var blobUrl = URL.createObjectURL(pdfBlob);
     window.open(blobUrl, '_blank');
 }
+
+
 
 function localsave() {
     //get all the inputs
