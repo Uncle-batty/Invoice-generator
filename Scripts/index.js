@@ -100,11 +100,11 @@ function genPDF() {
     const doc = new jsPDF();
 
     // Get all inputs
-    var businessName = document.getElementById("buisness-name").value;
-    var businessAddress = document.getElementById("buisness-address").value;
-    var businessPhone = document.getElementById("buisness-phone").value;
-    var businessEmail = document.getElementById("buisness-email").value;
-    var businessInvoiceId = document.getElementById("buisness-invoive-id").value;
+    var businessName = document.getElementById("business-name").value;
+    var businessAddress = document.getElementById("business-address").value;
+    var businessPhone = document.getElementById("business-phone").value;
+    var businessEmail = document.getElementById("business-email").value;
+    var businessInvoiceId = document.getElementById("invoice-number").value;
     var businessBilledToName = document.getElementById("buisness-billed-to-name").value;
     var businessBilledToAddress = document.getElementById("Address").value;
 

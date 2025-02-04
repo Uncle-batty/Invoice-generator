@@ -22,61 +22,114 @@
         Lugi & Friends Invoice Generator
     </header>
     <main>
-        <section class="Buisness-info">
-            <p class="buisness-info-title">Buisness Information</p>
-            <div class="buisness-info-inputs">
-                <!-- once design is created change the structure of the logo section -->
-                <img src="" id="preview-business-logo"><br>
-                <label for="business-logo-file">Add logo</label><br>
-                <input type="file" accept="image/*" id="business-logo-file" class="business-input-file" style="display: none;">
-                <br>
-                
-                <br>
-                <label for="buisness-invoive-id">Invoice number(can be left blank)</label>
-                <input type="text" id="buisness-invoive-id">
-                <label for="buisness-name">Buisness Name</label>
-                <input type="text" id="buisness-name">
-                <label for="buisness-address">Buisness Address</label>
-                <input type="text" id="buisness-address">
-                <label for="buisness-phone">Buisness Phone</label>
-                <input type="text" id="buisness-phone">
-                <label for="buisness-email">Buisness Email</label>
-                <input type="text" id="buisness-email">
-            </div>
-            <p class="buisness-info-title">Customer Information</p>
-            <div class="buisness-billed-to">
-                <label for="buisness-billed-to-name">Billed to</label>
-                <input type="text" id="buisness-billed-to-name">
-                <label for="Address">Address</label>
-                <input type="text" id="Address">
-            </div>
-        </section>
-
+        <div class="container">
+            <section class="Buisness-info">
+                <p class="buisness-info-title">Business Information</p>
+                <div class="business-info-inputs">
+                    <img src="" id="preview-business-logo"><br>
+                    <label for="business-logo-file">Add logo</label><br>
+                    <input type="file" accept="image/*" id="business-logo-file" class="business-input-file" style="display: none;">
+                    
+                    <div class="input-pair">
+                    <div class="input-container">
+                        <input type="text" id="invoice-number" required="">
+                        <label for="invoice-number" class="label">Invoice number (can be left blank)</label>
+                        <div class="underline"></div>
+                    </div>
+                </div>
+        
+                    <div class="input-pair">
+                        <div class="input-container">
+                            <input type="text" id="business-name" required="">
+                            <label for="business-name" class="label">Business Name</label>
+                            <div class="underline"></div>
+                        </div>
+        
+                        <div class="input-container">
+                            <input type="text" id="business-address" required="">
+                            <label for="business-address" class="label">Business Address</label>
+                            <div class="underline"></div>
+                        </div>
+                    </div>
+        
+                    <div class="input-pair">
+                        <div class="input-container">
+                            <input type="text" id="business-phone" required="">
+                            <label for="business-phone" class="label">Business Phone</label>
+                            <div class="underline"></div>
+                        </div>
+        
+                        <div class="input-container">
+                            <input type="email" id="business-email" required="">
+                            <label for="business-email" class="label">Business Email</label>
+                            <div class="underline"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        
+            <section class="Customer-info">
+                <p class="buisness-info-title">Customer Information</p>
+                <div class="buisness-billed-to">
+                    <div class="input-container">
+                        <input type="text" id="buisness-billed-to-name" required="">
+                        <label for="buisness-billed-to-name" class="label">Billed to</label>
+                        <div class="underline"></div>
+                    </div>
+        
+                    <div class="input-container">
+                        <input type="text" id="Address" required="">
+                        <label for="Address" class="label">Address</label>
+                        <div class="underline"></div>
+                    </div>
+                </div>
+            </section>
+        </div>   
+        
+        <div class="container">
         <!-- Item info -->
-        <section class="Item-info">
+            <section class="Item-info">
             <p class="item-info-title">Item Information</p>
             <div class="item-info-inputs">
-                <label for="item-name">Item</label>
-                <input type="text" id="item-name">
-                <label for="item-description">Description</label>
-                <input type="text" id="item-description">
-                <label for="item-quantity" >Quantity</label>
-                <input type="number" id="item-quantity">
-                <label for="item-unit-price">Unit Price</label>
-                <input type="number" id="item-unit-price" step="0.01"><br><br>
-                <button onclick="addItems()" id="item-add-button">Add</button><br><br>
-                <div class="item-table">
-                    <table id="item-table">
-                        
-                    </table>
-    
-            </div>    
+                <div class="input-pair">
+                    <div class="input-container">
+                        <input type="text" id="item-name" required="">
+                        <label for="item-name" class="label">Item</label>
+                        <div class="underline"></div>
+                    </div>
+                    <div class="input-container">
+                        <input type="Text" id="item-description" required="">
+                        <label for="item-description" class="label">Description</label>
+                        <div class="underline"></div>
+                    </div>
+                </div> 
+                <div class="input-pair">
+                    <div class="input-container">
+                        <input type="number" id="item-quantity" required="">
+                        <label for="item-quantity" class="label">Quantity</label>
+                        <div class="underline"></div>
+                    </div>
+                    <div class="input-container">
+                        <input type="number" id="item-unit-price" required="" step="0.10" >
+                        <label for="item-unit-price" class="label">Unit Price</label>
+                        <div class="underline"></div>
+                    </div>
+                </div> 
+                
+                <button onclick="addItems()" id="item-add-button">Add</button>
         </div> 
-        </section>
+            </section>
+            <section class="item-table">
+            <table id="item-table">
+                
+            </table>
 
+            </section> 
+        </div>   
         <section class="Final-info">
             <Button onclick="genPDF()">Generate</Button>
         </section>
+  
     </main>
 
     <footer>
