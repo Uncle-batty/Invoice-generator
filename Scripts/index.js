@@ -202,7 +202,7 @@ function generateInvoice(doc, imgData, businessName, businessInvoiceId, business
         alternateRowStyles: { fillColor: [240, 240, 240] },
         tableLineColor: [0, 0, 0],
         tableLineWidth: 0.1,
-        footStyles: { fontStyle: 'bold', textColor: [0, 0, 0], fillColor: [200, 200, 200] } // Style for footer row
+        footStyles: { fontStyle: 'bold', textColor: [0, 0, 0], fillColor: [200, 200, 200] } 
     });
 
     // Open PDF in a new tab
