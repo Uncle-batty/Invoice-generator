@@ -194,13 +194,15 @@ function generateInvoice(doc, imgData, businessName, businessInvoiceId, business
     doc.autoTable({
         head: [columns],
         body: rows,
+        foot: [[ "", "", "", "Grand Total:", sum ]],
         startY: 130,
         theme: 'grid',
         headStyles: { fillColor: [0, 102, 204], textColor: [255, 255, 255], fontSize: 12, fontStyle: 'bold' },
         bodyStyles: { textColor: [0, 0, 0], fontSize: 10 },
         alternateRowStyles: { fillColor: [240, 240, 240] },
         tableLineColor: [0, 0, 0],
-        tableLineWidth: 0.1
+        tableLineWidth: 0.1,
+        footStyles: { fontStyle: 'bold', textColor: [0, 0, 0], fillColor: [200, 200, 200] } // Style for footer row
     });
 
     // Open PDF in a new tab
