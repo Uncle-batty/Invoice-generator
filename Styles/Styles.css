@@ -1,3 +1,23 @@
+body{
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+main{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.content {
+  background: white;
+  padding: 20px;
+  text-align: center;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  
+}
+
 /* Make the sections appear side by side */
 .container {
     display: flex;
@@ -5,17 +25,54 @@
     align-items: flex-start;
     flex-wrap: wrap;
     gap: 20px;
+    border-color: black;
 }
 
-.Buisness-info, .Customer-info {
-    flex: 1;
-    min-width: 400px; /* Adjust based on your needs */
+/*invoice information sections*/
+.business-info{
+  /*background-color: red;*/
+  border-radius: 8px;
+  padding: 10px;
+  
+  align-items: center;
+}
+
+.customer-info{
+  /*background-color: blue;*/
+  border-radius: 8px;
+  padding: 10px;
+  
+  align-items: center;
+}
+
+.item-info{
+  /*background-color: green;*/
+  flex: 1;
+  border-radius: 8px;
+  padding: 10px;
+  
+  align-items: center;
+
+}
+
+.Final-info {
+  /*background-color: purple;*/
+  border-radius: 8px;
+  padding: 10px;
+  
+  align-items: center;
+}
+
+/*LOGO*/
+.preview-business-logo{
+  width: 60px;
+  height: 60px;
+  display: none;
 }
 
 /* Style for two inputs appearing next to each other */
 .buisness-billed-to {
     display: flex;
-    flex-wrap: wrap;
     gap: 20px;
 }
 
@@ -31,13 +88,15 @@
 /* Adjust the width of all input fields */
 .input-container {
     width: 100%;
-    max-width: 300px;
+    text-align: center;
 }
 
 /* Make two input fields appear next to each other */
 .input-pair {
     display: flex;
     gap: 20px;
+    padding: 20px;
+    
 }
 
 
@@ -104,12 +163,18 @@
   }
   
 
-  .Final-info {
-    align-items: center;
-    align-content: center;
-    justify-content: center;
-    justify-items: center;
-  }
+
+
+
+/*
+button styles
+*/
+
+/*
+add item info button
+*/
+
+
 
 
 
@@ -144,5 +209,114 @@
     box-shadow: 0 4px 3px 1px #FCFCFC, 0 6px 8px #D6D7D9, 0 -4px 4px #CECFD1, 0 -6px 4px #FEFEFE, inset 0 0 5px 3px #999, inset 0 0 30px #aaa;
   }
   
+  /*logo button*/
+  .logo-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    outline: none;
+    cursor: pointer;
+    width: 150px;
+    height: 50px;
+    background-image: linear-gradient(to top, #D8D9DB 0%, #fff 80%, #FDFDFD 100%);
+    border-radius: 30px;
+    border: 1px solid #8F9092;
+    transition: all 0.2s ease;
+    font-family: "Source Sans Pro", sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: #606060;
+    text-shadow: 0 1px #fff;
+    text-align: center;
+}
+
+.logo-button:hover {
+    box-shadow: 0 4px 3px 1px #FCFCFC, 0 6px 8px #D6D7D9, 0 -4px 4px #CECFD1, 0 -6px 4px #FEFEFE, inset 0 0 3px 3px #CECFD1;
+}
+
+.logo-button:active {
+    box-shadow: 0 4px 3px 1px #FCFCFC, 0 6px 8px #D6D7D9, 0 -4px 4px #CECFD1, 0 -6px 4px #FEFEFE, inset 0 0 5px 3px #999, inset 0 0 30px #aaa;
+}
+
+.logo-button:focus {
+    box-shadow: 0 4px 3px 1px #FCFCFC, 0 6px 8px #D6D7D9, 0 -4px 4px #CECFD1, 0 -6px 4px #FEFEFE, inset 0 0 5px 3px #999, inset 0 0 30px #aaa;
+}
+
+/*figma buttons*/
+.btn{
+  width: 146px; 
+  height: 40px;
+  background-color: #65558f;
+  border-radius: 100px;
+  opacity: 100%;
+  padding: 10px 16px;
+  align-items: center;
+  gap: 8px;
+  color: white;
+}
+
+.button-right{
+  display: flex;
+  justify-content: end;
+  gap: 20px;
+  padding: 20px;
+}
+
+/*style test*/
+/* Label styling */
+.test-label {
+  font-size: 12px;
+  color: #000;
+  position: absolute;
+  top: -7px; /* Position it above the input */
+  left: 10px;
+  background-color: #ccc;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-radius: 5px;
+}
+
+/* Input container styling */
+.test-input-container {
+  position: relative;
+  width: 100%; /* Ensure the container takes full width */
+  display: flex;
+  align-items: center; 
   
-  
+}
+
+/* Styling for the text input */
+.test-text-input {
+  width: 100%;
+  padding: 8px 10px; /* Reduced padding inside the input */
+  font-size: 16px;
+  color: #000;
+  border: 1px solid #6b6b6b;
+  border-radius: 4px;
+  background-color: white;
+}
+
+/*header line*/
+.section-splitter {
+  background-color: #64558e;
+  border: none;
+  height: 1px;
+}
+
+/*titles*/
+.lugi-title{
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.section-title{
+  background-color: #f7f1f9;
+  display: inline-block;
+  width: 186px;
+  height: 32px;
+  align-content: center;
+  border-radius: 10px;
+  box-shadow: -4px 4px 8px rgba(0, 0, 0, 0.3); /* Shadow on the left and bottom */
+  font-weight: 600; /* Optional: Make text stand out */
+}
