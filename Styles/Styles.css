@@ -318,5 +318,33 @@ add item info button
   align-content: center;
   border-radius: 10px;
   box-shadow: -4px 4px 8px rgba(0, 0, 0, 0.3); /* Shadow on the left and bottom */
-  font-weight: 600; /* Optional: Make text stand out */
+  font-weight: 600; 
 }
+
+/*table*/
+.item-table {
+  justify-items: center;
+  flex: auto;
+}
+
+.item-table {
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.item-table th, .item-table td {
+  border: 1px solid #ddd;
+  font-size: 14px;
+  padding: 12px;
+  word-wrap: break-word;
+  text-align: left;
+}
+
+.item-table th {
+  background-color: #f7f1f9;
+  color: black;
+}
+
+
+
+

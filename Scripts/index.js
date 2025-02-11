@@ -1,6 +1,8 @@
 let globalRows = [];
 let sum = 0;
 
+
+
 document.addEventListener("DOMContentLoaded", function() {
     let logoImg = document.getElementById("preview-business-logo");
     let logoImgFile = document.getElementById("business-logo-file");
@@ -51,13 +53,25 @@ function addItems() {
     clearInputs();
 }
 
+//function to add empty rows
+function  emptyRows(eRows, eCells) {
+    var tableBody = document.querySelector("#item-table tbody");
+
+    for(let i = 0; i < eRows; i++) {
+        let newRow = tableBody.insertRow();
+        
+        for(let j = 0; j < eCells; j++) {
+            newRow.insertCell();
+        }
+    }
+}
 
 function displayTable(dictionary) {
-    var table = document.getElementById("item-table");
-    table.innerHTML = ""; // Clear existing table before adding new rows
+    var tableBody  = document.querySelector("#item-table tbody");
+    tableBody.innerHTML = ""; // Clear existing table before adding new rows
 
     dictionary.forEach(row => {
-        let newRow = table.insertRow(); // Create a new row
+        let newRow = tableBody .insertRow(); // Create a new row
         
         row.forEach(cell => {
             let newCell = newRow.insertCell(); // Create a new cell
@@ -254,4 +268,10 @@ function loadFromLocalStorage() {
 }
 
 // Call this function on page load to automatically populate the fields
-window.onload = loadFromLocalStorage;
+
+//functions for page loading
+function loadPageContents() {
+    loadFromLocalStorage();
+    emptyRows(1,5)
+}
+window.addEventListener("load", loadPageContents)
