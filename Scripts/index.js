@@ -121,6 +121,7 @@ function genPDF() {
     var businessInvoiceId = document.getElementById("invoice-number").value;
     var businessBilledToName = document.getElementById("buisness-billed-to-name").value;
     var businessBilledToAddress = document.getElementById("Address").value;
+    var vatAmount = document.getElementById("vat-amount").value;
 
     // Generate invoice ID if empty
     if (businessInvoiceId == "") {
@@ -144,10 +145,10 @@ function genPDF() {
             let imgData = canvas.toDataURL("image/png");
 
             // Generate the invoice after loading the logo
-            generateInvoice(doc, imgData, businessName, businessInvoiceId, businessAddress, businessPhone, businessEmail, businessBilledToName, businessBilledToAddress);
+            generateInvoice(doc, imgData, businessName, businessInvoiceId, businessAddress, businessPhone, businessEmail, businessBilledToName, businessBilledToAddress, vatAmount);
         }
     } else {
-        generateInvoice(doc, null, businessName, businessInvoiceId, businessAddress, businessPhone, businessEmail, businessBilledToName, businessBilledToAddress);
+        generateInvoice(doc, null, businessName, businessInvoiceId, businessAddress, businessPhone, businessEmail, businessBilledToName, businessBilledToAddress, vatAmount);
     }
 }
 
@@ -166,7 +167,7 @@ function genPDF() {
  * @param {string} businessBilledToAddress - The address of the person/business being billed.
  * @returns {void}
  */
-function generateInvoice(doc, imgData, businessName, businessInvoiceId, businessAddress, businessPhone, businessEmail, businessBilledToName, businessBilledToAddress) {
+function generateInvoice(doc, imgData, businessName, businessInvoiceId, businessAddress, businessPhone, businessEmail, businessBilledToName, businessBilledToAddress, vatAmount) {
     // Create invoice header
     doc.setFontSize(24);
     doc.text(businessName, 105, 20, null, null, "center");
@@ -198,7 +199,10 @@ function generateInvoice(doc, imgData, businessName, businessInvoiceId, business
     doc.setDrawColor(0, 0, 0);
     doc.setLineWidth(1.5);
     doc.line(10, 120, 200, 121);
-
+     vatPercentage = vatAmount
+     vatAmount = sum *(vatAmount/100)
+     subtotal = sum 
+     sum = subtotal + vatAmount
     // Table for items
     const columns = ["Item", "Description", "Quantity", "Price/Unit", "Total"];
     const rows = globalRows;
@@ -208,7 +212,10 @@ function generateInvoice(doc, imgData, businessName, businessInvoiceId, business
     doc.autoTable({
         head: [columns],
         body: rows,
-        foot: [[ "", "", "", "Grand Total:", sum ]],
+        foot: [["", "", "", "Subtotal:", subtotal],
+        ["", "", "", "VAT (" + vatPercentage + "%):", vatAmount],
+        ["", "", "", "VAT Number:", 4444444],
+        ["", "", "", "Grand Total:", sum]],
         startY: 130,
         theme: 'grid',
         headStyles: { fillColor: [0, 102, 204], textColor: [255, 255, 255], fontSize: 12, fontStyle: 'bold' },
