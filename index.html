@@ -8,19 +8,226 @@
     <meta name="keywords" content="Invoice, Generator, Invoice Generator, Buisness, Quote">
 
     <title>Invoice genorator</title>
+
+    <link rel="stylesheet" href="Styles/Styles.css">
+    <script src="Scripts/index.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.min.js"></script>
 </head>
 
 <body>
+    
     <header>
-        main
+        <div class="lugi-title">
+        <h1>Lugi & Friends Invoice Generator</h1>
+        </div>
+    </header>
+    <main>
+        <!-- content container for doc layout-->
+        <div class="content">
+        <img src="" id="preview-business-logo" class="preview-business-logo"><br>
+        
+        <input type="file" accept="image/*" id="business-logo-file" class="business-input-file" style="display: none;">
 
-        <main>
+        <!--splitter-->
+        <div class="header-divider-section">
+        <hr class="section-splitter">
+        </div>
 
-        </main>
+        <!-- add vat number under business info -->
+       <!--information section-->
+        <div class="business-info">
+           
+                <p class="section-title">Business Information</p>
+                <div class="business-info-inputs">
 
-        <footer>
+                <!--input pair-->
+                <div class="input-pair">
+                    <div class="test-input-container">
+                        <label  for="vat-number" class="test-label"> VAT Number</label>
+                        <input type="text" id="vat-number" class="test-text-input" required="">
+                    </div>
+                </div>
+            
+                <!--input pair-->
+                <div class="input-pair">
+                    <!--vat input field added more work to be done-->
+                    <div class="test-input-container">
+                        <label for="vat-amount" class="test-label">VAT Amount</label>
+                        <input type="number" id="vat-amount" class="test-text-input" required="">            
+                    </div>
+                    <div class="test-input-container">
+                        <label for="invoice-number" class="test-label">Invoice number (optional)</label>
+                        <input type="text" id="invoice-number" class="test-text-input" required="">            
+                    </div>
+                </div>
+        
+                <!--input pair-->
 
-        </footer>
+                    <div class="input-pair">
+                        <div class="test-input-container">
+                            <input type="text" id="business-name" class="test-text-input" required="">
+                            <label for="business-name" class="test-label">Business Name</label>
+                            
+                        </div>
+        
+                        <div class="test-input-container">
+                            <input type="text" id="business-address" class="test-text-input" required="">
+                            <label for="business-address" class="test-label">Business Address</label>
+                            
+                        </div>
+                    </div>
+        
+                <!--input pair-->
+                    <div class="input-pair">
+                        <div class="test-input-container">
+                            <input type="text" id="business-phone" class="test-text-input" required="">
+                            <label for="business-phone" class="test-label">Business Phone</label>
+                            
+                        </div>
+        
+                        <div class="test-input-container">
+                            <input type="email" id="business-email" class="test-text-input" required="">
+                            <label for="business-email" class="test-label">Business Email</label>
+                            
+                        </div>
+                        
+                    </div>
+
+                    
+                        <div class="button-right">
+                            <div class="add-items-button-container">
+                            <label for="business-logo-file" class="logo-button">Upload logo</label>
+                            </div>
+                        </div>
+                        
+                        
+                    
+                </div>
+            </div>    
+           
+        <!--splitter-->
+        <div class="divider-section">
+            <hr class="section-splitter">
+        </div>
+
+        <!--information section-->
+        <div class="customer-info">
+
+            
+            
+                <p class="section-title">Customer Information</p>
+                
+                <!--input pair-->
+                <div class="input-pair">
+                    <div class="test-input-container">
+                        <input type="text" id="buisness-billed-to-name" class="test-text-input" required="">
+                        <label for="buisness-billed-to-name" class="test-label">Billed to</label>
+                        
+                    </div>
+        
+                    <div class="test-input-container">
+                        <input type="text" id="Address" class="test-text-input" required="">
+                        <label for="Address" class="test-label">Address</label>
+                    </div>
+                </div>
+                
+          
+        </div>
+        
+        <!--splitter-->
+        <div class="divider-section">
+        <hr class="section-splitter">
+        </div>
+
+        <!--information section-->
+        <!-- Item info -->
+            <div class="item-info">
+
+             
+            <p class="section-title">Item Information</p>
+            <div class="item-info-inputs">
+
+                <!--input pair-->
+                <div class="input-pair">
+                    <div class="test-input-container">
+                        <input type="text" id="item-name" class="test-text-input" required="">
+                        <label for="item-name" class="test-label">Item</label>
+                        
+                    </div>
+                    <div class="test-input-container">
+                        <input type="Text" id="item-description" class="test-text-input" required="">
+                        <label for="item-description" class="test-label">Description</label>
+                        
+                    </div>
+                </div> 
+                <!--input pair-->
+                <div class="input-pair">
+                    <div class="test-input-container">
+                        <input type="number" id="item-quantity" class="test-text-input" required="">
+                        <label for="item-quantity" class="test-label">Quantity</label>
+                        
+                    </div>
+                    <div class="test-input-container">
+                        <input type="number" id="item-unit-price"  class="test-text-input" required="" step="0.10" >
+                        <label for="item-unit-price" class="test-label">Unit Price</label>
+                        
+                    </div>
+                </div> 
+                
+            
+            <div  class="button-right">
+                <div class="add-items-button-container">
+                <button onclick="addItems()" id="item-add-button">Add</button>
+                </div>
+            </div>
+            
+        </div> 
+
+        <!--splitter-->
+        <div class="divider-section">
+        <hr class="section-splitter">
+        </div>
+
+        </div> 
+            </section>
+            <!--table-->
+            <section class="item-table">
+            <table id="item-table">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Description</th>
+                        <th>Quantity</th>
+                        <th>Unit Price</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody >
+                    
+                </tbody>
+            </table>
+
+            </section> 
+            <section class="Final-info">
+                <div class="button-right">
+                <Button onclick="genPDF()">Generate</Button>
+                </div>
+            </section>
+        </div>
+        
+        
+
+
+   
+    </main>
+
+    <footer>
+
+    </footer>
+
 </body>
 
 </html>
