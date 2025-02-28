@@ -31,22 +31,31 @@
         
         <input type="file" accept="image/*" id="business-logo-file" class="business-input-file" style="display: none;">
 
+        <!--splitter-->
+        <div class="header-divider-section">
+        <hr class="section-splitter">
+        </div>
+
         <!-- add vat number under business info -->
        <!--information section-->
         <div class="business-info">
-            
-            <!--splitter-->
-            <hr class="section-splitter">
-        
            
                 <p class="section-title">Business Information</p>
                 <div class="business-info-inputs">
 
                 <!--input pair-->
                 <div class="input-pair">
+                    <div class="test-input-container">
+                        <label  for="vat-number" class="test-label"> VAT Number</label>
+                        <input type="text" id="vat-number" class="test-text-input" required="">
+                    </div>
+                </div>
+            
+                <!--input pair-->
+                <div class="input-pair">
                     <!--vat input field added more work to be done-->
                     <div class="test-input-container">
-                        <label for="vat-number" class="test-label">VAT amount</label>
+                        <label for="vat-amount" class="test-label">VAT Amount</label>
                         <input type="number" id="vat-amount" class="test-text-input" required="">            
                     </div>
                     <div class="test-input-container">
@@ -93,17 +102,22 @@
                             <label for="business-logo-file" class="logo-button">Upload logo</label>
                             </div>
                         </div>
-                        <hr class="section-splitter">
+                        
                         
                     
                 </div>
             </div>    
            
+        <!--splitter-->
+        <div class="divider-section">
+            <hr class="section-splitter">
+        </div>
+
         <!--information section-->
         <div class="customer-info">
 
-            <!--splitter-->
-            <hr class="section-splitter">
+            
+            
                 <p class="section-title">Customer Information</p>
                 
                 <!--input pair-->
@@ -119,15 +133,20 @@
                         <label for="Address" class="test-label">Address</label>
                     </div>
                 </div>
-                <hr class="section-splitter">
+                
           
         </div>
         
+        <!--splitter-->
+        <div class="divider-section">
+        <hr class="section-splitter">
+        </div>
+
         <!--information section-->
         <!-- Item info -->
             <div class="item-info">
 
-            <hr class="section-splitter">   
+             
             <p class="section-title">Item Information</p>
             <div class="item-info-inputs">
 
@@ -164,8 +183,14 @@
                 <button onclick="addItems()" id="item-add-button">Add</button>
                 </div>
             </div>
-            <hr class="section-splitter">
+            
         </div> 
+
+        <!--splitter-->
+        <div class="divider-section">
+        <hr class="section-splitter">
+        </div>
+
         </div> 
             </section>
             <!--table-->

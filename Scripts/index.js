@@ -122,6 +122,7 @@ function genPDF() {
     var businessBilledToName = document.getElementById("buisness-billed-to-name").value;
     var businessBilledToAddress = document.getElementById("Address").value;
     var vatAmount = document.getElementById("vat-amount").value;
+    var vatNumber = document.getElementById("vat-number").value;
 
     // Generate invoice ID if empty
     if (businessInvoiceId == "") {
@@ -145,10 +146,10 @@ function genPDF() {
             let imgData = canvas.toDataURL("image/png");
 
             // Generate the invoice after loading the logo
-            generateInvoice(doc, imgData, businessName, businessInvoiceId, businessAddress, businessPhone, businessEmail, businessBilledToName, businessBilledToAddress, vatAmount);
+            generateInvoice(doc, imgData, businessName, businessInvoiceId, businessAddress, businessPhone, businessEmail, businessBilledToName, businessBilledToAddress, vatAmount, vatNumber);
         }
     } else {
-        generateInvoice(doc, null, businessName, businessInvoiceId, businessAddress, businessPhone, businessEmail, businessBilledToName, businessBilledToAddress, vatAmount);
+        generateInvoice(doc, null, businessName, businessInvoiceId, businessAddress, businessPhone, businessEmail, businessBilledToName, businessBilledToAddress, vatAmount, vatNumber);
     }
 }
 
@@ -167,13 +168,14 @@ function genPDF() {
  * @param {string} businessBilledToAddress - The address of the person/business being billed.
  * @returns {void}
  */
-function generateInvoice(doc, imgData, businessName, businessInvoiceId, businessAddress, businessPhone, businessEmail, businessBilledToName, businessBilledToAddress, vatAmount) {
+function generateInvoice(doc, imgData, businessName, businessInvoiceId, businessAddress, businessPhone, businessEmail, businessBilledToName, businessBilledToAddress, vatAmount, vatNumber) {
     // Create invoice header
     doc.setFontSize(24);
     doc.text(businessName, 105, 20, null, null, "center");
 
     doc.setFontSize(12);
     doc.text("Invoice: " + businessInvoiceId, 10, 35); // Invoice number
+    doc.text("VAT Number: " + vatNumber, 10, 45); //(10,45) is the x and y axis
 
     // If there is a logo, add it under invoice number and next to business details
     if (imgData) {
@@ -214,7 +216,6 @@ function generateInvoice(doc, imgData, businessName, businessInvoiceId, business
         body: rows,
         foot: [["", "", "", "Subtotal:", subtotal],
         ["", "", "", "VAT (" + vatPercentage + "%):", vatAmount],
-        ["", "", "", "VAT Number:", 4444444],
         ["", "", "", "Grand Total:", sum]],
         startY: 130,
         theme: 'grid',
